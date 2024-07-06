@@ -1,12 +1,12 @@
-# Splinterlands Statistics
+# Splinterlands bots dash board
 
 Main:
-[![Flake8](https://gamerbeaker007.github.io/splinterlands-statistics/main/flake8-badge.svg)](https://gamerbeaker007.github.io/splinterlands-statistics/main/flake8/)
-[![Tests](https://gamerbeaker007.github.io/splinterlands-statistics/main/junit-badge.svg)](https://gamerbeaker007.github.io/splinterlands-statistics/main/junit/)
-[![Tests Coverage](https://gamerbeaker007.github.io/splinterlands-statistics/main/coverage-badge.svg)](https://gamerbeaker007.github.io/splinterlands-statistics/main/coverage/) | branch:
-[![Flake8](https://gamerbeaker007.github.io/splinterlands-statistics/branch/flake8-badge.svg)](https://gamerbeaker007.github.io/splinterlands-statistics/branch/flake8/)
-[![Tests](https://gamerbeaker007.github.io/splinterlands-statistics/branch/junit-badge.svg)](https://gamerbeaker007.github.io/splinterlands-statistics/branch/junit/)
-[![Tests Coverage](https://gamerbeaker007.github.io/splinterlands-statistics/branch/coverage-badge.svg)](https://gamerbeaker007.github.io/splinterlands-statistics/branch/coverage/)
+[![Flake8](https://gamerbeaker007.github.io/spl-bots-dashboard/main/flake8-badge.svg)](https://gamerbeaker007.github.io/spl-bots-dashboard/main/flake8/)
+[![Tests](https://gamerbeaker007.github.io/spl-bots-dashboard/main/junit-badge.svg)](https://gamerbeaker007.github.io/spl-bots-dashboard/main/junit/)
+[![Tests Coverage](https://gamerbeaker007.github.io/spl-bots-dashboard/main/coverage-badge.svg)](https://gamerbeaker007.github.io/spl-bots-dashboard/main/coverage/) | branch:
+[![Flake8](https://gamerbeaker007.github.io/spl-bots-dashboard/branch/flake8-badge.svg)](https://gamerbeaker007.github.io/spl-bots-dashboard/branch/flake8/)
+[![Tests](https://gamerbeaker007.github.io/spl-bots-dashboard/branch/junit-badge.svg)](https://gamerbeaker007.github.io/spl-bots-dashboard/branch/junit/)
+[![Tests Coverage](https://gamerbeaker007.github.io/spl-bots-dashboard/branch/coverage-badge.svg)](https://gamerbeaker007.github.io/spl-bots-dashboard/branch/coverage/)
 
 # Instructions
 
@@ -21,23 +21,23 @@ Main:
 
 ## With Docker
 
-docker pull gamerbeaker/splinterlands-statistics:latest
+docker pull gamerbeaker/spl-bots-dashboard:latest
 
 ### Windows (docker):
 
-<code>docker run --rm -it -v C:\Temp\:/app/store -p 8050:8050 --name splinterlands-statistics
-gamerbeaker/splinterlands-statistics:latest</code>
+<code>docker run --rm -it -v C:\Temp\:/app/store -p 8050:8050 --name spl-bots-dashboard
+gamerbeaker/spl-bots-dashboard:latest</code>
 For server mode
-<code>docker run --rm -it -v C:\Temp\:/app/store -p 8050:8050 --name splinterlands-statistics
-gamerbeaker/splinterlands-statistics:latest -s</code>
+<code>docker run --rm -it -v C:\Temp\:/app/store -p 8050:8050 --name spl-bots-dashboard
+gamerbeaker/spl-bots-dashboard:latest -s</code>
 
 ### Linux (docker):
 
-<code>docker run --rm -it -v \tmp\:/app/store -p 8050:8050 --name splinterlands-statistics
-gamerbeaker/splinterlands-statistics:latest</code>
+<code>docker run --rm -it -v \tmp\:/app/store -p 8050:8050 --name spl-bots-dashboard
+gamerbeaker/spl-bots-dashboard:latest</code>
 For server mode
-<code>docker run --rm -it -v \tmp\:/app/store -p 8050:8050 --name splinterlands-statistics
-gamerbeaker/splinterlands-statistics:latest -s</code>
+<code>docker run --rm -it -v \tmp\:/app/store -p 8050:8050 --name spl-bots-dashboard
+gamerbeaker/spl-bots-dashboard:latest -s</code>
 
 ## With python development or local execution
 
