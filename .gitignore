@@ -1,1 +1,6 @@
+build
+spl-bots-dashboard
+venv
 .idea
+/store/*
+reports/**/*
