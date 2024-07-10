@@ -1,5 +1,6 @@
 1     E251 unexpected spaces around keyword / parameter equals
 1     E302 expected 2 blank lines, found 1
 2     E501 line too long (134 > 120 characters)
-3     F401 'dash.exceptions.PreventUpdate' imported but unused
+2     F401 'dateutil.parser' imported but unused
+2     F841 local variable 'winner_name' is assigned to but never used
 2     W391 blank line at end of file

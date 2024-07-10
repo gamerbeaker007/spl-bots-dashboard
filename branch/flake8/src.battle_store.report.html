@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>flake8 violations: src/pages/filter_pages/filter_season.py</title>
+      <title>flake8 violations: src/battle_store.py</title>
       <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
       <link rel="stylesheet" href="styles.css">
 <script>
@@ -37,31 +37,42 @@ window.addEventListener('DOMContentLoaded', function () {
       <div id="page">
          <p id="srclink">
             <a title="View full annotated source"
-               href="src.pages.filter_pages.filter_season.source.html">
+               href="src.battle_store.source.html">
                <img src="file.svg" alt="&#x2261;">
             </a></p>
          <h1>
             <a href="index.html">
                <img src="back.svg" alt="&#x2B05;">
-               src/pages/filter_pages/filter_season.py
+               src/battle_store.py
             </a>
          </h1>
 
          <ul id="index">
          
          <li>
-            <a data-code="F401">
+            <a data-code="F841">
                <span class="count sev-1">
-                  1
+                  2
                </span>
-               <strong>F401:</strong> 'dash.exceptions.PreventUpdate' imported but unused
+               <strong>F841:</strong> local variable 'winner_name' is assigned to but never used
+               
+                  (and 1 similar)
                
             </a>
             <ul class="details">
             <li>
                
-               <a href="src.pages.filter_pages.filter_season.source.html#l3">
-                  <tt><i>3</i> <span class="kn">from</span> <span class="nn">dash.exceptions</span> <span class="kn">import</span> <span class="n">PreventUpdate</span></tt>
+               <p>Local variable 'winner_name' is assigned to but never used:</p>
+               
+               <a href="src.battle_store.source.html#l115">
+                  <tt><i>115</i>                         <span class="n">winner_name</span> <span class="o">=</span> <span class="n">battle_details</span><span class="p">[</span><span class="s1">&#39;winner&#39;</span><span class="p">]</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Local variable 'opponent_team' is assigned to but never used:</p>
+               
+               <a href="src.battle_store.source.html#l122">
+                  <tt><i>122</i>                             <span class="n">opponent_team</span> <span class="o">=</span> <span class="n">battle_details</span><span class="p">[</span><span class="s1">&#39;team1&#39;</span><span class="p">]</span></tt>
                </a>
             </li>
             </ul>
