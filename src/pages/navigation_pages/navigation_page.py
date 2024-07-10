@@ -9,6 +9,7 @@ from dash_iconify import DashIconify
 from src.configuration import progress, config
 from src.pages.config_pages import config_page
 from src.pages.filter_pages import filter_ids
+from src.pages.inspect_page import inspect_page
 from src.pages.main_dash import app
 from src.pages.navigation_pages import nav_ids
 from src.pages.rating_pages import rating_page
@@ -40,6 +41,7 @@ navbar = dbc.Navbar(
                 dbc.NavbarSimple(
                     children=[
                         dbc.NavItem(dbc.NavLink('Rating', href='/')),
+                        dbc.NavItem(dbc.NavLink('Inspect', href='/inspect')),
                         dbc.NavItem(dbc.NavLink('Config', href='/config')),
                     ],
                     brand_href='/',
@@ -96,6 +98,8 @@ def update_theme(toggle):
 def display_page(pathname, search, search_hash):
     if pathname == '/':
         return rating_page.layout
+    if pathname == '/inspect':
+        return inspect_page.layout
     if pathname == '/config':
         return config_page.layout
     else:  # if redirected to unknown link

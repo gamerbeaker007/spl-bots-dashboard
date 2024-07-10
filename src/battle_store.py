@@ -2,7 +2,7 @@ import logging
 
 import pandas as pd
 
-from src.configuration import store
+from src.configuration import store, config
 from src.static.static_values_enum import MatchType, Format
 from src.utils import store_util, progress_util, spl_util
 
@@ -53,6 +53,54 @@ def get_battles_to_process(account):
     return battle_history
 
 
+def add_battle_store_big_my(account, team, battle, match_type):
+    match_format = get_battle_format(battle['format'])
+    created_date = battle['created_date']
+    mana_cap = battle['mana_cap']
+    rulesets = battle['ruleset']
+    inactive = battle['inactive']
+    battle_id = battle['battle_queue_id_1']
+    winner = battle['winner']
+    opponent = battle['player_2'] if battle['player_1'] == account else battle['player_1']
+    result = "win" if winner == account else "loss"
+
+    cards = list(team['monsters'])
+    cards.append(team['summoner'])
+    ruleset_split = ['None', 'None', 'None']
+    for idx, ruleset in enumerate(rulesets.split('|')):
+        ruleset_split[idx] = ruleset
+
+    for card in cards:
+        # add new row
+        card_id = card['card_detail_id']
+        card_name = config.card_details_df.loc[card_id]['name']
+        df = pd.DataFrame({'card_detail_id': card_id,
+                           'card_name': card_name,
+                           'card_type': config.card_details_df.loc[card_id]['type'],
+                           'rarity': config.card_details_df.loc[card_id]['rarity'],
+                           'color': config.card_details_df.loc[card_id]['color'],
+                           'secondary_color': config.card_details_df.loc[card_id]['secondary_color'],
+                           'xp': card['xp'],
+                           'gold': card['gold'],
+                           'level': card['level'],
+                           'edition': card['edition'],
+                           'account': account,
+                           'opponent': opponent,
+                           'created_date': created_date,
+                           'match_type': match_type,
+                           'format': match_format,
+                           'mana_cap': mana_cap,
+                           'ruleset1': ruleset_split[0],
+                           'ruleset2': ruleset_split[1],
+                           'ruleset3': ruleset_split[2],
+                           'inactive': inactive,
+                           'battle_id': battle_id,
+                           'winner': winner,
+                           'result': result,
+                           }, index=[0])
+        store.battle_big = pd.concat([store.battle_big, df], ignore_index=True)
+
+
 def process_battle(account):
     if store_util.get_management_token():
         battle_history = get_battles_to_process(account)
@@ -64,10 +112,31 @@ def process_battle(account):
 
                     battle_details = battle.details
                     if not is_surrender(battle_details):
+                        winner_name = battle_details['winner']
+
+                        if battle_details['team1']['player'] == account:
+                            my_team = battle_details['team1']
+                            opponent_team = battle_details['team2']
+                        else:
+                            my_team = battle_details['team2']
+                            opponent_team = battle_details['team1']
+
+                        if 'is_brawl' in battle_details and battle_details['is_brawl']:
+                            match_type = MatchType.BRAWL.value
+
+                        add_battle_store_big_my(account,
+                                                my_team,
+                                                battle, match_type)
+
                         # If a ranked match also log the rating
                         if match_type and match_type == MatchType.RANKED.value:
                             add_rating_log(account, battle)
 
+                        # If the battle is lost store losing battle
+                        # if winner_name != account:
+                        #     add_losing_battle_team(account,
+                        #                            opponent_team,
+                        #                            battle)
                     else:
                         logging.debug("Surrender match skip")
 

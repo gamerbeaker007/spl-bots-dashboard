@@ -15,7 +15,7 @@ land_url = 'https://vapi.splinterlands.com/'
 prices_url = 'https://prices.splinterlands.com/'
 
 retry_strategy = LogRetry(
-    total=10,
+    total=20,
     status_forcelist=[429, 500, 502, 503, 504],
     backoff_factor=2,  # wait will be [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
     allowed_methods=['HEAD', 'GET', 'OPTIONS']

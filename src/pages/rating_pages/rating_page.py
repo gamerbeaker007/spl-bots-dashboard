@@ -17,12 +17,6 @@ from src.static.static_values_enum import Leagues
 from src.utils import chart_util
 from src.utils.trace_logging import measure_duration
 
-# filter_settings = {
-#     'from_date': '2001-01-01T00:00:00.000Z',
-#     # 'format': Format.modern.value
-#     # 'account': ''
-# }
-
 # Define the page layout
 layout = dbc.Container([
     dbc.Row([
