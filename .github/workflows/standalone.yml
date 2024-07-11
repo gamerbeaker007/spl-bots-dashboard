@@ -1,0 +1,137 @@
+name: Create standalone application
+
+on:
+  release:
+    types:
+      - published
+  push:
+    branches:
+      - 'main'
+      - 'build_*'
+  # run it during pull request
+  pull_request:
+
+jobs:
+  build:
+    name: Main/build branch
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ 'windows-latest', 'ubuntu-latest' ] # later add others like 'ubuntu-latest', 'macos-latest'
+
+    if: ((startsWith(github.ref, 'refs/heads/build_') || startsWith(github.ref, 'refs/heads/main')) && github.event_name == 'push') || github.event_name == 'pull_request'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip' # caching pip dependencies
+
+      - if: matrix.os == 'windows-latest'
+        run: |
+          choco install openssl -y
+          md -path C:\OpenSSL-Win64
+          Copy-Item "C:\Program Files\OpenSSL\*" -Destination "C:\OpenSSL-Win64" -Recurse
+
+      - run: pip install -r requirements.txt pyinstaller
+
+      - if: matrix.os == 'windows-latest'
+        run: >
+          pyinstaller --onefile 
+          --collect-data dash_mantine_components 
+          --collect-data dash_extensions 
+          --collect-data dash_iconify 
+          --collect-data dash_bootstrap_templates 
+          --hidden-import _scrypt
+          --add-data="assets;assets"
+          --distpath spl-bots-dashboard
+          main.py
+
+      - if: matrix.os == 'ubuntu-latest'
+        run: >
+          pyinstaller --onefile 
+          --collect-data dash_mantine_components 
+          --collect-data dash_extensions 
+          --collect-data dash_iconify 
+          --collect-data dash_bootstrap_templates 
+          --hidden-import _scrypt
+          --add-data="assets:assets"
+          --distpath spl-bots-dashboard
+          main.py
+
+      - if: matrix.os == 'ubuntu-latest'
+        run: |
+          mv "spl-bots-dashboard/main" "spl-bots-dashboard/main.sh"
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: spl-bots-dashboard-${{ matrix.os }}
+          path: ./spl-bots-dashboard/*
+
+
+  build-on-release:
+    name: Release
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ 'windows-latest', 'ubuntu-latest' ] # later add others like 'ubuntu-latest', 'macos-latest'
+
+    runs-on: ${{ matrix.os }}
+    if: github.event_name == 'release' && github.event.action == 'published'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip' # caching pip dependencies
+
+      - if: matrix.os == 'windows-latest'
+        run: |
+          choco install openssl -y
+          md -path C:\OpenSSL-Win64
+          Copy-Item "C:\Program Files\OpenSSL\*" -Destination "C:\OpenSSL-Win64" -Recurse
+
+      - run: pip install -r requirements.txt pyinstaller
+      - run: echo "__standalone_version__ = '${{ github.event.release.tag_name }}'" > src/configuration/standalone_version.py
+
+      - if: matrix.os == 'windows-latest'
+        run: >
+          pyinstaller --onefile 
+          --collect-data dash_mantine_components 
+          --collect-data dash_extensions 
+          --collect-data dash_iconify 
+          --collect-data dash_bootstrap_templates 
+          --hidden-import _scrypt
+          --add-data="assets;assets"
+          --distpath spl-bots-dashboard
+          main.py
+
+      - if: matrix.os == 'ubuntu-latest'
+        run: >
+          pyinstaller --onefile 
+          --collect-data dash_mantine_components 
+          --collect-data dash_extensions 
+          --collect-data dash_iconify 
+          --collect-data dash_bootstrap_templates 
+          --hidden-import _scrypt
+          --add-data="assets:assets"
+          --distpath spl-bots-dashboard
+          main.py
+
+      - if: matrix.os == 'ubuntu-latest'
+        run: |
+          mv "spl-bots-dashboard/main" "spl-bots-dashboard/main.sh"
+
+      - if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: spl-bots-dashboard-ubuntu-${{ github.event.release.tag_name }}
+          path: ./spl-bots-dashboard/*
+
+      - if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: spl-bots-dashboard-windows-${{ github.event.release.tag_name }}
+          path: ./spl-bots-dashboard/*
