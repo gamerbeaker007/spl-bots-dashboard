@@ -6,7 +6,7 @@
       <link rel="stylesheet" href="styles.css">
    </head>
    <body>
-      <div id="masthead" class="sev-1"></div>
+      <div id="masthead" class="sev-2"></div>
       <div id="page">
          <h1>
             <a href="src.analyse.report.html">
@@ -29,16 +29,7 @@
                class="code sev- "><tt><i>4</i> &nbsp;</tt>
             </div>
             <div id="l5"
-               class="code sev-1  le">
-               <ul class="violations">
-               
-                  <li>
-                     <span class="count sev-1">
-                        F401
-                     </span>
-                     'src.configuration.store' imported but unused</li>
-               
-               </ul><tt><i>5</i> <span class="kn">from</span> <span class="nn">src.configuration</span> <span class="kn">import</span> <span class="n">store</span><span class="p">,</span> <span class="n">config</span></tt>
+               class="code sev- "><tt><i>5</i> <span class="kn">from</span> <span class="nn">src.configuration</span> <span class="kn">import</span> <span class="n">config</span></tt>
             </div>
             <div id="l6"
                class="code sev- "><tt><i>6</i> <span class="kn">from</span> <span class="nn">src.static.static_values_enum</span> <span class="kn">import</span> <span class="n">Edition</span><span class="p">,</span> <span class="n">Element</span><span class="p">,</span> <span class="n">CardType</span><span class="p">,</span> <span class="n">Rarity</span><span class="p">,</span> <span class="n">ManaCap</span><span class="p">,</span> <span class="n">MatchType</span><span class="p">,</span> <span class="n">Format</span></tt>
@@ -101,7 +92,7 @@
                class="code sev- "><tt><i>25</i> &nbsp;</tt>
             </div>
             <div id="l26"
-               class="code sev- "><tt><i>26</i> <span class="k">def</span> <span class="nf">filter_battles</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">filter_account</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filter_match_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filter_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></tt>
+               class="code sev- "><tt><i>26</i> <span class="k">def</span> <span class="nf">filter_battles</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">filter_account</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filter_match_type_arg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filter_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></tt>
             </div>
             <div id="l27"
                class="code sev- "><tt><i>27</i>     <span class="n">temp_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></tt>
@@ -122,10 +113,10 @@
                class="code sev- "><tt><i>32</i>         <span class="n">filter_type</span> <span class="o">=</span> <span class="kc">None</span></tt>
             </div>
             <div id="l33"
-               class="code sev- "><tt><i>33</i>     <span class="k">if</span> <span class="n">filter_match_type</span> <span class="o">==</span> <span class="s1">&#39;ALL&#39;</span><span class="p">:</span></tt>
+               class="code sev- "><tt><i>33</i>     <span class="k">if</span> <span class="n">filter_match_type_arg</span> <span class="o">==</span> <span class="s1">&#39;ALL&#39;</span><span class="p">:</span></tt>
             </div>
             <div id="l34"
-               class="code sev- "><tt><i>34</i>         <span class="n">filter_match_type</span> <span class="o">=</span> <span class="kc">None</span></tt>
+               class="code sev- "><tt><i>34</i>         <span class="n">filter_match_type_arg</span> <span class="o">=</span> <span class="kc">None</span></tt>
             </div>
             <div id="l35"
                class="code sev- "><tt><i>35</i> &nbsp;</tt>
@@ -143,10 +134,10 @@
                class="code sev- "><tt><i>39</i> &nbsp;</tt>
             </div>
             <div id="l40"
-               class="code sev- "><tt><i>40</i>         <span class="k">if</span> <span class="n">filter_match_type</span><span class="p">:</span></tt>
+               class="code sev- "><tt><i>40</i>         <span class="k">if</span> <span class="n">filter_match_type_arg</span><span class="p">:</span></tt>
             </div>
             <div id="l41"
-               class="code sev- "><tt><i>41</i>             <span class="n">temp_df</span> <span class="o">=</span> <span class="n">temp_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">temp_df</span><span class="o">.</span><span class="n">match_type</span> <span class="o">==</span> <span class="n">filter_match_type</span><span class="p">)]</span></tt>
+               class="code sev- "><tt><i>41</i>             <span class="n">temp_df</span> <span class="o">=</span> <span class="n">temp_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">temp_df</span><span class="o">.</span><span class="n">match_type</span> <span class="o">==</span> <span class="n">filter_match_type_arg</span><span class="p">)]</span></tt>
             </div>
             <div id="l42"
                class="code sev- "><tt><i>42</i> &nbsp;</tt>
