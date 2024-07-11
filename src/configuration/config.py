@@ -64,4 +64,4 @@ settings = spl.get_settings()
 dark_theme = 'slate'
 light_theme = 'minty'
 current_theme = dark_theme
-file_extension = '.csv'
+file_extension = '.parquet'

@@ -51,7 +51,7 @@ def load_stores():
     for store_name in get_store_names():
         store_file = get_store_file(store_name)
         if os.path.isfile(store_file):
-            store.__dict__[store_name] = pd.read_parquet(str(store_file) + '.parquet', engine='pyarrow')
+            store.__dict__[store_name] = pd.read_parquet(store_file, engine='pyarrow')
 
 
 def save_stores():
@@ -59,7 +59,7 @@ def save_stores():
         store_file = get_store_file(store_name)
         store.__dict__[store_name].sort_index().to_csv(store_file)
         store.__dict__[store_name].sort_index().to_parquet(
-            str(store_file) + '.parquet',
+            store_file,
             engine='pyarrow',
             compression='snappy'
         )
@@ -70,7 +70,7 @@ def save_single_store(store_name):
         store_file = get_store_file(store_name)
         store.__dict__[store_name].sort_index().to_csv(store_file)
         store.__dict__[store_name].sort_index().to_parquet(
-            str(store_file) + '.parquet',
+            store_file,
             engine='pyarrow',
             compression='snappy'
         )
