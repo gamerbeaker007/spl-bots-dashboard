@@ -51,22 +51,29 @@ def load_stores():
     for store_name in get_store_names():
         store_file = get_store_file(store_name)
         if os.path.isfile(store_file):
-            # TODO investigate the low_memory
-            # DtypeWarning: Columns (6,14) have mixed types. Specify dtype option on import or set low_memory=False.
-            #   store.__dict__[store_name] = pd.read_csv(store_file, index_col=0)
-            store.__dict__[store_name] = pd.read_csv(store_file, index_col=0, low_memory=False)
+            store.__dict__[store_name] = pd.read_parquet(str(store_file) + '.parquet', engine='pyarrow')
 
 
 def save_stores():
     for store_name in get_store_names():
         store_file = get_store_file(store_name)
         store.__dict__[store_name].sort_index().to_csv(store_file)
+        store.__dict__[store_name].sort_index().to_parquet(
+            str(store_file) + '.parquet',
+            engine='pyarrow',
+            compression='snappy'
+        )
 
 
 def save_single_store(store_name):
     if validate_store_name(store_name):
         store_file = get_store_file(store_name)
         store.__dict__[store_name].sort_index().to_csv(store_file)
+        store.__dict__[store_name].sort_index().to_parquet(
+            str(store_file) + '.parquet',
+            engine='pyarrow',
+            compression='snappy'
+        )
     else:
         logging.error("Invalid store name")
 

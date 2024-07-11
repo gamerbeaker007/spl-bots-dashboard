@@ -36,7 +36,6 @@ layout = dbc.InputGroup(
 )
 @measure_duration
 def filter_season_df(season_id, filter_settings):
-    print(f"Triggered filter_season_df with season_id: {season_id} trigger: {ctx.triggered_id} ")
     if season_id:
         season_end_date = store.season_end_dates.loc[(store.season_end_dates.id == int(season_id) - 1)].end_date.iloc[0]
         from_date = parser.parse(season_end_date)
@@ -59,5 +58,4 @@ def update_season_callback(trigger):
     first_played_season = ''
     if len(season_played) > 1:
         first_played_season = season_played[1]
-    print(f"Updating season options: {season_played}, selecting value: {first_played_season}")
     return season_played, first_played_season

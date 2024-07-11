@@ -292,7 +292,7 @@ def filter_date(input_df, filter_settings):
         return input_df
     if 'from_date' in filter_settings:
         from_date = filter_settings['from_date']
-        input_df.created_date = pd.to_datetime(input_df.created_date)
+        input_df.created_date = pd.to_datetime(input_df.created_date, format='ISO8601')
         input_df = input_df.loc[input_df.created_date > pd.to_datetime(from_date)]
     return input_df
 
@@ -300,7 +300,7 @@ def filter_date(input_df, filter_settings):
 def filter_rule_sets(input_df, filter_settings):
     if not input_df.empty and 'rule_sets' in filter_settings:
         rule_sets = filter_settings['rule_sets']
-        if len(rule_sets) != 0:
+        if rule_sets and len(rule_sets) != 0:
             return input_df.loc[(input_df.ruleset1.isin(rule_sets) |
                                  input_df.ruleset2.isin(rule_sets) |
                                  input_df.ruleset3.isin(rule_sets))]
