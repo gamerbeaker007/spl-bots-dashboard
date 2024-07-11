@@ -2,7 +2,7 @@ import logging
 
 import pandas as pd
 
-from src.configuration import store, config
+from src.configuration import config
 from src.static.static_values_enum import Edition, Element, CardType, Rarity, ManaCap, MatchType, Format
 
 
@@ -23,22 +23,22 @@ def get_image_url(card_name, level, edition):
     return str(card_url)
 
 
-def filter_battles(df, filter_account=None, filter_match_type=None, filter_type=None):
+def filter_battles(df, filter_account=None, filter_match_type_arg=None, filter_type=None):
     temp_df = df.copy()
     # if ALL filter None :)
     if filter_account == 'ALL':
         filter_account = None
     if filter_type == 'ALL':
         filter_type = None
-    if filter_match_type == 'ALL':
-        filter_match_type = None
+    if filter_match_type_arg == 'ALL':
+        filter_match_type_arg = None
 
     if not temp_df.empty:
         if filter_account:
             temp_df = temp_df.loc[(temp_df.account == filter_account)]
 
-        if filter_match_type:
-            temp_df = temp_df.loc[(temp_df.match_type == filter_match_type)]
+        if filter_match_type_arg:
+            temp_df = temp_df.loc[(temp_df.match_type == filter_match_type_arg)]
 
         if filter_type:
             temp_df = temp_df.loc[(temp_df.card_type == filter_type)]

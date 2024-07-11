@@ -166,9 +166,14 @@ def remove_monitoring_account(account_name):
 
 def update_battle_log():
     progress_util.set_daily_title('Clean data older than \'' + str(KEEP_NUMBER_SEASONS) + '\' seasons')
+    cut_off_date = store.season_end_dates.tail(KEEP_NUMBER_SEASONS+1).iloc[0].end_date
+
     if not store.rating.empty:
-        cut_off_date = store.season_end_dates.tail(KEEP_NUMBER_SEASONS).iloc[0].end_date
         store.rating = store.rating[store.rating['created_date'] > cut_off_date]
+        save_stores()
+
+    if not store.battle_big.empty:
+        store.battle_big = store.battle_big[store.battle_big['created_date'] > cut_off_date]
         save_stores()
 
     progress_util.set_daily_title('Update battles')
@@ -178,11 +183,10 @@ def update_battle_log():
     progress_util.update_daily_msg('Done')
 
 
-def update_data(battle_update=True, season_update=False):
+def update_data():
     try:
         if not spl.is_maintenance_mode():
-            if battle_update:
-                update_battle_log()
+            update_battle_log()
         else:
             logging.info("Splinterlands server is in maintenance mode skip this update cycle")
     except Exception as e:

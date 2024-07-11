@@ -41,7 +41,6 @@ layout = dbc.Container([
         html.Center(html.H1("Champion")),
         dcc.Graph(id=rating_ids.champion_rating_graph),
         dcc.Store(id=rating_ids.filtered_rating_df),
-        dcc.Store(id=rating_ids.filter_settings),
 
     ]),
 ])

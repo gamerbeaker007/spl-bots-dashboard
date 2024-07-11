@@ -37,7 +37,7 @@ def get_card_columns(df, number, detailed=True, account=None):
                         className='mb-3 card-hover',
                         style={'padding': '10px'},
                     ),
-                    href='card?card_id=' + str(row.card_detail_id) + '#account=' + account,
+                    # href='card?card_id=' + str(row.card_detail_id) + '#account=' + account,
                     style={'textDecoration': 'none',
                            'color': 'inherit'},
                 ),

@@ -201,7 +201,7 @@ def determine_notification(daily=False):
 @measure_duration
 def update_daily_button(n_clicks):
     if ctx.triggered_id == nav_ids.load_new_values and not config.server_mode:
-        store_util.update_data(battle_update=True, season_update=False)
+        store_util.update_data()
         return True
     else:
         raise PreventUpdate

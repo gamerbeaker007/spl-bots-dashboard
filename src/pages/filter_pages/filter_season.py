@@ -57,5 +57,5 @@ def update_season_callback(trigger):
 
     first_played_season = ''
     if len(season_played) > 1:
-        first_played_season = season_played[1]
+        first_played_season = season_played[0]
     return season_played, first_played_season
