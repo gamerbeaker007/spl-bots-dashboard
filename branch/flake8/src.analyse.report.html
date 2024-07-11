@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>flake8 violations: src/static/static_values_enum.py</title>
+      <title>flake8 violations: src/analyse.py</title>
       <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
       <link rel="stylesheet" href="styles.css">
 <script>
@@ -33,35 +33,53 @@ window.addEventListener('DOMContentLoaded', function () {
 </script>
    </head>
    <body>
-      <div id="masthead" class="sev-2"></div>
+      <div id="masthead" class="sev-1"></div>
       <div id="page">
          <p id="srclink">
             <a title="View full annotated source"
-               href="src.static.static_values_enum.source.html">
+               href="src.analyse.source.html">
                <img src="file.svg" alt="&#x2261;">
             </a></p>
          <h1>
             <a href="index.html">
                <img src="back.svg" alt="&#x2B05;">
-               src/static/static_values_enum.py
+               src/analyse.py
             </a>
          </h1>
 
          <ul id="index">
          
          <li>
-            <a data-code="E302">
-               <span class="count sev-2">
+            <a data-code="F401">
+               <span class="count sev-1">
                   1
                </span>
-               <strong>E302:</strong> expected 2 blank lines, found 1
+               <strong>F401:</strong> 'src.configuration.store' imported but unused
                
             </a>
             <ul class="details">
             <li>
                
-               <a href="src.static.static_values_enum.source.html#l66">
-                  <tt><i>66</i> <span class="k">class</span> <span class="nc">RatingLevel</span><span class="p">(</span><span class="n">ExtendedEnum</span><span class="p">):</span></tt>
+               <a href="src.analyse.source.html#l5">
+                  <tt><i>5</i> <span class="kn">from</span> <span class="nn">src.configuration</span> <span class="kn">import</span> <span class="n">store</span><span class="p">,</span> <span class="n">config</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E303">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>E303:</strong> too many blank lines (3)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="src.analyse.source.html#l272">
+                  <tt><i>272</i> <span class="k">def</span> <span class="nf">has_ability</span><span class="p">(</span><span class="n">cards</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">abilities</span><span class="p">):</span></tt>
                </a>
             </li>
             </ul>

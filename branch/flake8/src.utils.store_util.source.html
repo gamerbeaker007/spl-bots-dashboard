@@ -6,7 +6,7 @@
       <link rel="stylesheet" href="styles.css">
    </head>
    <body>
-      <div id="masthead" class="sev-1"></div>
+      <div id="masthead" class="sev-2"></div>
       <div id="page">
          <h1>
             <a href="src.utils.store_util.report.html">
@@ -32,16 +32,7 @@
                class="code sev- "><tt><i>5</i> &nbsp;</tt>
             </div>
             <div id="l6"
-               class="code sev-1  le">
-               <ul class="violations">
-               
-                  <li>
-                     <span class="count sev-1">
-                        F401
-                     </span>
-                     'src.collection_store' imported but unused</li>
-               
-               </ul><tt><i>6</i> <span class="kn">from</span> <span class="nn">src</span> <span class="kn">import</span> <span class="n">collection_store</span><span class="p">,</span> <span class="n">battle_store</span></tt>
+               class="code sev- "><tt><i>6</i> <span class="kn">from</span> <span class="nn">src</span> <span class="kn">import</span> <span class="n">battle_store</span></tt>
             </div>
             <div id="l7"
                class="code sev- "><tt><i>7</i> <span class="kn">from</span> <span class="nn">src.api</span> <span class="kn">import</span> <span class="n">spl</span></tt>
@@ -533,148 +524,121 @@
                class="code sev- "><tt><i>166</i> &nbsp;</tt>
             </div>
             <div id="l167"
-               class="code sev- "><tt><i>167</i> <span class="k">def</span> <span class="nf">get_season_values</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">season_id</span><span class="p">,</span> <span class="n">users</span><span class="p">,</span> <span class="n">season_id_column</span><span class="o">=</span><span class="s1">&#39;season_id&#39;</span><span class="p">):</span></tt>
+               class="code sev- "><tt><i>167</i> <span class="k">def</span> <span class="nf">update_battle_log</span><span class="p">():</span></tt>
             </div>
             <div id="l168"
-               class="code sev- "><tt><i>168</i>     <span class="k">if</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span></tt>
+               class="code sev- "><tt><i>168</i>     <span class="n">progress_util</span><span class="o">.</span><span class="n">set_daily_title</span><span class="p">(</span><span class="s1">&#39;Clean data older than </span><span class="se">\&#39;</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">KEEP_NUMBER_SEASONS</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1"> seasons&#39;</span><span class="p">)</span></tt>
             </div>
             <div id="l169"
-               class="code sev- "><tt><i>169</i>         <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">users</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">season_id_column</span><span class="p">]</span> <span class="o">==</span> <span class="n">season_id</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></tt>
+               class="code sev- "><tt><i>169</i>     <span class="k">if</span> <span class="ow">not</span> <span class="n">store</span><span class="o">.</span><span class="n">rating</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span></tt>
             </div>
             <div id="l170"
-               class="code sev- "><tt><i>170</i>     <span class="k">else</span><span class="p">:</span></tt>
+               class="code sev- "><tt><i>170</i>         <span class="n">cut_off_date</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">season_end_dates</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">KEEP_NUMBER_SEASONS</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">end_date</span></tt>
             </div>
             <div id="l171"
-               class="code sev- "><tt><i>171</i>         <span class="k">return</span> <span class="n">df</span></tt>
+               class="code sev- "><tt><i>171</i>         <span class="n">store</span><span class="o">.</span><span class="n">rating</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">rating</span><span class="p">[</span><span class="n">store</span><span class="o">.</span><span class="n">rating</span><span class="p">[</span><span class="s1">&#39;created_date&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cut_off_date</span><span class="p">]</span></tt>
             </div>
             <div id="l172"
-               class="code sev- "><tt><i>172</i> &nbsp;</tt>
+               class="code sev- "><tt><i>172</i>         <span class="n">save_stores</span><span class="p">()</span></tt>
             </div>
             <div id="l173"
                class="code sev- "><tt><i>173</i> &nbsp;</tt>
             </div>
             <div id="l174"
-               class="code sev- "><tt><i>174</i> <span class="k">def</span> <span class="nf">update_battle_log</span><span class="p">():</span></tt>
+               class="code sev- "><tt><i>174</i>     <span class="n">progress_util</span><span class="o">.</span><span class="n">set_daily_title</span><span class="p">(</span><span class="s1">&#39;Update battles&#39;</span><span class="p">)</span></tt>
             </div>
             <div id="l175"
-               class="code sev- "><tt><i>175</i>     <span class="c1"># progress_util.set_daily_title(&#39;Update collection&#39;)</span></tt>
+               class="code sev- "><tt><i>175</i>     <span class="n">battle_store</span><span class="o">.</span><span class="n">process_battles</span><span class="p">()</span></tt>
             </div>
             <div id="l176"
-               class="code sev- "><tt><i>176</i>     <span class="c1"># collection_store.update_collection()</span></tt>
+               class="code sev- "><tt><i>176</i> &nbsp;</tt>
             </div>
             <div id="l177"
-               class="code sev- "><tt><i>177</i>     <span class="n">progress_util</span><span class="o">.</span><span class="n">set_daily_title</span><span class="p">(</span><span class="s1">&#39;Clean data older than </span><span class="se">\&#39;</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">KEEP_NUMBER_SEASONS</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1"> seasons&#39;</span><span class="p">)</span></tt>
+               class="code sev- "><tt><i>177</i>     <span class="n">save_stores</span><span class="p">()</span></tt>
             </div>
             <div id="l178"
-               class="code sev- "><tt><i>178</i>     <span class="k">if</span> <span class="ow">not</span> <span class="n">store</span><span class="o">.</span><span class="n">rating</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span></tt>
+               class="code sev- "><tt><i>178</i>     <span class="n">progress_util</span><span class="o">.</span><span class="n">update_daily_msg</span><span class="p">(</span><span class="s1">&#39;Done&#39;</span><span class="p">)</span></tt>
             </div>
             <div id="l179"
-               class="code sev- "><tt><i>179</i>         <span class="n">cut_off_date</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">season_end_dates</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">KEEP_NUMBER_SEASONS</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">end_date</span></tt>
+               class="code sev- "><tt><i>179</i> &nbsp;</tt>
             </div>
             <div id="l180"
-               class="code sev- "><tt><i>180</i>         <span class="n">store</span><span class="o">.</span><span class="n">rating</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">rating</span><span class="p">[</span><span class="n">store</span><span class="o">.</span><span class="n">rating</span><span class="p">[</span><span class="s1">&#39;created_date&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cut_off_date</span><span class="p">]</span></tt>
+               class="code sev- "><tt><i>180</i> &nbsp;</tt>
             </div>
             <div id="l181"
-               class="code sev- "><tt><i>181</i>         <span class="n">save_stores</span><span class="p">()</span></tt>
+               class="code sev- "><tt><i>181</i> <span class="k">def</span> <span class="nf">update_data</span><span class="p">(</span><span class="n">battle_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">season_update</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></tt>
             </div>
             <div id="l182"
-               class="code sev- "><tt><i>182</i> &nbsp;</tt>
+               class="code sev- "><tt><i>182</i>     <span class="k">try</span><span class="p">:</span></tt>
             </div>
             <div id="l183"
-               class="code sev- "><tt><i>183</i>     <span class="n">progress_util</span><span class="o">.</span><span class="n">set_daily_title</span><span class="p">(</span><span class="s1">&#39;Update battles&#39;</span><span class="p">)</span></tt>
+               class="code sev- "><tt><i>183</i>         <span class="k">if</span> <span class="ow">not</span> <span class="n">spl</span><span class="o">.</span><span class="n">is_maintenance_mode</span><span class="p">():</span></tt>
             </div>
             <div id="l184"
-               class="code sev- "><tt><i>184</i>     <span class="n">battle_store</span><span class="o">.</span><span class="n">process_battles</span><span class="p">()</span></tt>
+               class="code sev- "><tt><i>184</i>             <span class="k">if</span> <span class="n">battle_update</span><span class="p">:</span></tt>
             </div>
             <div id="l185"
-               class="code sev- "><tt><i>185</i> &nbsp;</tt>
+               class="code sev- "><tt><i>185</i>                 <span class="n">update_battle_log</span><span class="p">()</span></tt>
             </div>
             <div id="l186"
-               class="code sev- "><tt><i>186</i>     <span class="n">save_stores</span><span class="p">()</span></tt>
+               class="code sev- "><tt><i>186</i>         <span class="k">else</span><span class="p">:</span></tt>
             </div>
             <div id="l187"
-               class="code sev- "><tt><i>187</i>     <span class="n">progress_util</span><span class="o">.</span><span class="n">update_daily_msg</span><span class="p">(</span><span class="s1">&#39;Done&#39;</span><span class="p">)</span></tt>
+               class="code sev- "><tt><i>187</i>             <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Splinterlands server is in maintenance mode skip this update cycle&quot;</span><span class="p">)</span></tt>
             </div>
             <div id="l188"
-               class="code sev- "><tt><i>188</i> &nbsp;</tt>
+               class="code sev- "><tt><i>188</i>     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></tt>
             </div>
             <div id="l189"
-               class="code sev- "><tt><i>189</i> &nbsp;</tt>
+               class="code sev- "><tt><i>189</i>         <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exception during update data&quot;</span><span class="p">)</span></tt>
             </div>
             <div id="l190"
-               class="code sev- "><tt><i>190</i> <span class="k">def</span> <span class="nf">update_data</span><span class="p">(</span><span class="n">battle_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">season_update</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span></tt>
+               class="code sev- "><tt><i>190</i>         <span class="n">logging</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></tt>
             </div>
             <div id="l191"
-               class="code sev- "><tt><i>191</i>     <span class="k">try</span><span class="p">:</span></tt>
+               class="code sev- "><tt><i>191</i> &nbsp;</tt>
             </div>
             <div id="l192"
-               class="code sev- "><tt><i>192</i>         <span class="k">if</span> <span class="ow">not</span> <span class="n">spl</span><span class="o">.</span><span class="n">is_maintenance_mode</span><span class="p">():</span></tt>
+               class="code sev- "><tt><i>192</i> &nbsp;</tt>
             </div>
             <div id="l193"
-               class="code sev- "><tt><i>193</i>             <span class="k">if</span> <span class="n">battle_update</span><span class="p">:</span></tt>
+               class="code sev- "><tt><i>193</i> <span class="k">def</span> <span class="nf">get_management_token</span><span class="p">():</span></tt>
             </div>
             <div id="l194"
-               class="code sev- "><tt><i>194</i>                 <span class="n">update_battle_log</span><span class="p">()</span></tt>
+               class="code sev- "><tt><i>194</i>     <span class="k">if</span> <span class="ow">not</span> <span class="n">store</span><span class="o">.</span><span class="n">secrets</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span></tt>
             </div>
             <div id="l195"
-               class="code sev- "><tt><i>195</i>         <span class="k">else</span><span class="p">:</span></tt>
+               class="code sev- "><tt><i>195</i>         <span class="n">get_management_account_name</span><span class="p">()</span></tt>
             </div>
             <div id="l196"
-               class="code sev- "><tt><i>196</i>             <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Splinterlands server is in maintenance mode skip this update cycle&quot;</span><span class="p">)</span></tt>
+               class="code sev- "><tt><i>196</i>         <span class="n">row</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">secrets</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">store</span><span class="o">.</span><span class="n">secrets</span><span class="o">.</span><span class="n">username</span> <span class="o">==</span> <span class="n">get_management_account_name</span><span class="p">())]</span></tt>
             </div>
             <div id="l197"
-               class="code sev- "><tt><i>197</i>     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></tt>
+               class="code sev- "><tt><i>197</i>         <span class="k">if</span> <span class="ow">not</span> <span class="n">row</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span></tt>
             </div>
             <div id="l198"
-               class="code sev- "><tt><i>198</i>         <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exception during update data&quot;</span><span class="p">)</span></tt>
+               class="code sev- "><tt><i>198</i>             <span class="n">row</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></tt>
             </div>
             <div id="l199"
-               class="code sev- "><tt><i>199</i>         <span class="n">logging</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></tt>
+               class="code sev- "><tt><i>199</i>             <span class="n">params</span> <span class="o">=</span> <span class="p">{</span></tt>
             </div>
             <div id="l200"
-               class="code sev- "><tt><i>200</i> &nbsp;</tt>
+               class="code sev- "><tt><i>200</i>                 <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">username</span><span class="p">,</span></tt>
             </div>
             <div id="l201"
-               class="code sev- "><tt><i>201</i> &nbsp;</tt>
+               class="code sev- "><tt><i>201</i>                 <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">version</span><span class="p">,</span></tt>
             </div>
             <div id="l202"
-               class="code sev- "><tt><i>202</i> <span class="k">def</span> <span class="nf">get_management_token</span><span class="p">():</span></tt>
+               class="code sev- "><tt><i>202</i>                 <span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">token</span><span class="p">,</span></tt>
             </div>
             <div id="l203"
-               class="code sev- "><tt><i>203</i>     <span class="k">if</span> <span class="ow">not</span> <span class="n">store</span><span class="o">.</span><span class="n">secrets</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span></tt>
+               class="code sev- "><tt><i>203</i>             <span class="p">}</span></tt>
             </div>
             <div id="l204"
-               class="code sev- "><tt><i>204</i>         <span class="n">get_management_account_name</span><span class="p">()</span></tt>
+               class="code sev- "><tt><i>204</i>             <span class="k">return</span> <span class="n">params</span></tt>
             </div>
             <div id="l205"
-               class="code sev- "><tt><i>205</i>         <span class="n">row</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">secrets</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">store</span><span class="o">.</span><span class="n">secrets</span><span class="o">.</span><span class="n">username</span> <span class="o">==</span> <span class="n">get_management_account_name</span><span class="p">())]</span></tt>
-            </div>
-            <div id="l206"
-               class="code sev- "><tt><i>206</i>         <span class="k">if</span> <span class="ow">not</span> <span class="n">row</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span></tt>
-            </div>
-            <div id="l207"
-               class="code sev- "><tt><i>207</i>             <span class="n">row</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></tt>
-            </div>
-            <div id="l208"
-               class="code sev- "><tt><i>208</i>             <span class="n">params</span> <span class="o">=</span> <span class="p">{</span></tt>
-            </div>
-            <div id="l209"
-               class="code sev- "><tt><i>209</i>                 <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">username</span><span class="p">,</span></tt>
-            </div>
-            <div id="l210"
-               class="code sev- "><tt><i>210</i>                 <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">version</span><span class="p">,</span></tt>
-            </div>
-            <div id="l211"
-               class="code sev- "><tt><i>211</i>                 <span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">token</span><span class="p">,</span></tt>
-            </div>
-            <div id="l212"
-               class="code sev- "><tt><i>212</i>             <span class="p">}</span></tt>
-            </div>
-            <div id="l213"
-               class="code sev- "><tt><i>213</i>             <span class="k">return</span> <span class="n">params</span></tt>
-            </div>
-            <div id="l214"
-               class="code sev- "><tt><i>214</i>     <span class="k">return</span> <span class="kc">None</span></tt>
+               class="code sev- "><tt><i>205</i>     <span class="k">return</span> <span class="kc">None</span></tt>
             </div>
             
          </div>
