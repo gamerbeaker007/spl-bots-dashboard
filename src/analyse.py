@@ -15,51 +15,12 @@ def get_image_url_markdown(card_name, level, edition):
     return str(markdown_prefix) + "(" + str(card_url) + ")"
 
 
-def get_art_url_markdown(card_name):
-    base_card_url = 'https://d36mxiodymuqjm.cloudfront.net/card_art/'
-    markdown_prefix = "![" + str(card_name) + "]"
-    card_name = str(card_name).replace(" ", "%20")
-    card_url = str(base_card_url) + card_name + ".png"
-    return str(markdown_prefix) + "(" + str(card_url) + ")"
-
-
-def get_art_url(card_name):
-    base_card_url = 'https://d36mxiodymuqjm.cloudfront.net/card_art/'
-    card_name = str(card_name).replace(" ", "%20")
-    card_url = str(base_card_url) + card_name + ".png"
-    return str(card_url)
-
-
 def get_image_url(card_name, level, edition):
     base_card_url = 'https://d36mxiodymuqjm.cloudfront.net/cards_by_level/'
     edition_name = Edition(edition).name
     card_name = str(card_name).replace(" ", "%20")
     card_url = str(base_card_url) + str(edition_name) + "/" + card_name + "_lv" + str(level) + ".png"
     return str(card_url)
-
-
-def get_losing_df(filter_account=None, filter_match_type=None, filter_type=None):
-    temp_df = filter_battles(store.losing_big, filter_account, filter_match_type, filter_type)
-    if not temp_df.empty:
-        temp_df = temp_df.groupby(['card_detail_id', 'card_name', 'level', 'edition'], as_index=False) \
-            .agg(number_of_losses=pd.NamedAgg(column='xp', aggfunc='count'))
-        temp_df['url_markdown'] = temp_df.apply(lambda row: get_image_url_markdown(row['card_name'],
-                                                                                   row['level'],
-                                                                                   row['edition']), axis=1)
-        temp_df['url'] = temp_df.apply(lambda row: get_image_url(row['card_name'],
-                                                                 row['level'],
-                                                                 row['edition']), axis=1)
-
-        temp_df.sort_values('number_of_losses', ascending=False, inplace=True)
-
-    return temp_df
-
-
-def get_losing_battles_count(filter_account=None, filter_match_type=None, filter_type=None):
-    temp_df = filter_battles(store.losing_big, filter_account, filter_match_type, filter_type)
-    if not temp_df.empty:
-        return temp_df.battle_id.unique().size
-    return 'NA'
 
 
 def filter_battles(df, filter_account=None, filter_match_type=None, filter_type=None):
@@ -84,18 +45,6 @@ def filter_battles(df, filter_account=None, filter_match_type=None, filter_type=
     else:
         logging.info('No battles found at all')
     return temp_df
-
-
-def get_top_3_losing_account(account, filter_match_type):
-    if store.losing_big.empty:
-        return store.losing_big
-    else:
-        temp_df = filter_battles(store.losing_big, filter_account=account, filter_match_type=filter_match_type)
-        temp_df = temp_df[['battle_id', 'opponent']]
-        temp_df = temp_df.drop_duplicates(subset=['battle_id', 'opponent'])
-        temp_df = temp_df.groupby(['opponent'], as_index=False).count()
-        temp_df.sort_values('battle_id', ascending=False, inplace=True)
-        return temp_df.head(3)
 
 
 def process_battles_win_percentage(df, group_levels=False):
@@ -318,47 +267,6 @@ def sort_by(input_df, filter_settings):
         return input_df.sort_values(columns, ascending=False)
     return input_df
 
-
-def get_daily_battle_stats(daily_df):
-    result_df = pd.DataFrame()
-    if not daily_df.empty:
-        # Select Ranked battle only
-        daily_df = daily_df.loc[(daily_df.match_type == MatchType.RANKED.value)]
-
-        # Select Ranked battles and make dates on day
-        daily_df.loc[:, 'created_date'] = pd.to_datetime(daily_df.loc[:, 'created_date']).dt.date
-
-        # First group on battle_id
-        daily_df = daily_df.groupby(['battle_id'], as_index=False).agg({'result': 'first',
-                                                                        'created_date': 'first',
-                                                                        'format': 'first'})
-        # second group on day
-        win_df = daily_df.loc[daily_df.result == 'win'].groupby(
-            ['created_date', 'result', 'format'], as_index=False).agg({'result': 'count'})
-        loss_df = daily_df.loc[daily_df.result == 'loss'].groupby(
-            ['created_date', 'result', 'format'], as_index=False).agg({'result': 'count'})
-        result_df = pd.merge(left=win_df, right=loss_df, on=['created_date', 'format'], how='outer')
-        result_df.fillna(0, inplace=True)
-        result_df.rename(columns={"result_x": "win", "result_y": "loss"}, inplace=True)
-        result_df['battles'] = result_df.win + result_df.loss
-    return result_df
-
-
-def get_battles_with_used_card(df, card_name):
-    result_df = pd.DataFrame()
-    if not df.empty:
-        battle_ids = df.loc[(df.card_name == card_name)].battle_id.tolist()
-        result_df = df.loc[df.battle_id.isin(battle_ids)]
-
-    return result_df
-
-
-def get_losing_battles(df, battle_ids):
-    result_df = pd.DataFrame()
-    if not df.empty:
-        result_df = df.loc[df.battle_id.isin(battle_ids)]
-
-    return result_df
 
 
 def has_ability(cards, name, level, abilities):

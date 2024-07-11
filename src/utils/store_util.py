@@ -3,7 +3,7 @@ import os
 
 import pandas as pd
 
-from src import collection_store, battle_store
+from src import battle_store
 from src.api import spl
 from src.configuration import store, config
 from src.static.static_values_enum import KEEP_NUMBER_SEASONS
@@ -164,16 +164,7 @@ def remove_monitoring_account(account_name):
     return store.monitoring_accounts.account_name.tolist()
 
 
-def get_season_values(df, season_id, users, season_id_column='season_id'):
-    if not df.empty:
-        return df.loc[(df.player.isin(users)) & (df[season_id_column] == season_id)].copy()
-    else:
-        return df
-
-
 def update_battle_log():
-    # progress_util.set_daily_title('Update collection')
-    # collection_store.update_collection()
     progress_util.set_daily_title('Clean data older than \'' + str(KEEP_NUMBER_SEASONS) + '\' seasons')
     if not store.rating.empty:
         cut_off_date = store.season_end_dates.tail(KEEP_NUMBER_SEASONS).iloc[0].end_date

@@ -63,6 +63,7 @@ class Leagues(ExtendedEnum):
     Diamond = 4
     Champion = 5
 
+
 class RatingLevel(ExtendedEnum):
     Novice = 0
     Bronze = 1

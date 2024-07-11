@@ -16,8 +16,12 @@ Main:
 * Unzip
 * Run main.exe or main.sh
 * Browse to http://127.0.0.1:8050
-* In the config tab add the accounts you want to monitor
-  Tip for windows: to see the console log of the program run this via and command prompt
+* In the config tab add management account
+  * Use posting key to create SPL token to be used for spl interaction
+* Add account you want to monitor and select the league where you expect them to be.
+  * Multiple account possible by using the ',' as separator like: account1,account2 
+    
+Tip for windows: to see the console log of the program run this via and command prompt
 
 ## With Docker
 
@@ -35,7 +39,9 @@ gamerbeaker/spl-bots-dashboard:latest -s</code>
 
 <code>docker run --rm -it -v \tmp\:/app/store -p 8050:8050 --name spl-bots-dashboard
 gamerbeaker/spl-bots-dashboard:latest</code>
+
 For server mode
+
 <code>docker run --rm -it -v \tmp\:/app/store -p 8050:8050 --name spl-bots-dashboard
 gamerbeaker/spl-bots-dashboard:latest -s</code>
 
