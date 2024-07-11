@@ -185,7 +185,7 @@
                class="code sev- "><tt><i>53</i>         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">store_file</span><span class="p">):</span></tt>
             </div>
             <div id="l54"
-               class="code sev- "><tt><i>54</i>             <span class="n">store</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">store_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">store_file</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.parquet&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pyarrow&#39;</span><span class="p">)</span></tt>
+               class="code sev- "><tt><i>54</i>             <span class="n">store</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">store_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">store_file</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pyarrow&#39;</span><span class="p">)</span></tt>
             </div>
             <div id="l55"
                class="code sev- "><tt><i>55</i> &nbsp;</tt>
@@ -209,7 +209,7 @@
                class="code sev- "><tt><i>61</i>         <span class="n">store</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">store_name</span><span class="p">]</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span></tt>
             </div>
             <div id="l62"
-               class="code sev- "><tt><i>62</i>             <span class="nb">str</span><span class="p">(</span><span class="n">store_file</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.parquet&#39;</span><span class="p">,</span></tt>
+               class="code sev- "><tt><i>62</i>             <span class="n">store_file</span><span class="p">,</span></tt>
             </div>
             <div id="l63"
                class="code sev- "><tt><i>63</i>             <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pyarrow&#39;</span><span class="p">,</span></tt>
@@ -242,7 +242,7 @@
                class="code sev- "><tt><i>72</i>         <span class="n">store</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">store_name</span><span class="p">]</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span></tt>
             </div>
             <div id="l73"
-               class="code sev- "><tt><i>73</i>             <span class="nb">str</span><span class="p">(</span><span class="n">store_file</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.parquet&#39;</span><span class="p">,</span></tt>
+               class="code sev- "><tt><i>73</i>             <span class="n">store_file</span><span class="p">,</span></tt>
             </div>
             <div id="l74"
                class="code sev- "><tt><i>74</i>             <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pyarrow&#39;</span><span class="p">,</span></tt>
